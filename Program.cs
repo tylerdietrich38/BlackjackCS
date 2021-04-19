@@ -119,25 +119,25 @@ namespace BlackjackCS
 
             var thirdCard = deck[4];
 
-            var fourthCard = deck[5];
+            // var fourthCard = deck[5];
 
             if (answer == "hit" || answer == "Hit" || answer == "HIT")
             {
                 Console.WriteLine($"{deck[4]}");
             }
-            if (answer == "hit" || answer == "Hit" || answer == "HIT")
-            {
-                Console.WriteLine($"{deck[5]}");
-                return;
-            }
+            // if (answer == "hit" || answer == "Hit" || answer == "HIT")
+            // {
+            //     Console.WriteLine($"{deck[5]}");
+            //     return;
+            // }
             // else (answer == "stand" || answer == "Stand" || answer = "STAND");
             // {
             //     Console.WriteLine("No more cards please!");
             //     return;
             // }
 
-
         }
+
         static void DealerHand()
         {
             var cards = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
@@ -172,12 +172,10 @@ namespace BlackjackCS
 
             var firstCard = deck[2];
             var secondCard = deck[3];
-            // var thirdCard = deck[2];
 
             Console.WriteLine(firstCard);
             Console.WriteLine("+");
             Console.WriteLine(secondCard);
-            // Console.WriteLine(thirdCard);
 
             Console.WriteLine("Do you want to hit or stand? ");
 
@@ -187,26 +185,21 @@ namespace BlackjackCS
 
             var thirdCard = deck[6];
 
+            // var fourthCard = deck[7];
+
             if (answer == "hit" || answer == "Hit" || answer == "HIT")
             {
                 Console.WriteLine($"{deck[4]}");
-                return;
             }
-
-        }
-
-        static void DisplayGreeting()
-        {
-            Console.WriteLine("Welcome to Blackjack");
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Let us play the game....");
+            // if (answer == "hit" || answer == "Hit" || answer == "HIT")
+            // {
+            //     Console.WriteLine($"{deck[5]}");
+            //     return;
+            // }
         }
 
         static void Main(string[] args)
         {
-
             DisplayGreeting();
 
             Console.WriteLine(" ");
@@ -222,6 +215,15 @@ namespace BlackjackCS
             DealerHand();
 
             Console.WriteLine(" ");
+        }
+
+        static void DisplayGreeting()
+        {
+            Console.WriteLine("Welcome to Blackjack");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Let us play the game....");
         }
     }
 }
