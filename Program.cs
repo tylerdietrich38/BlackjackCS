@@ -3,227 +3,224 @@ using System.Collections.Generic;
 
 namespace BlackjackCS
 {
-    // class Set
-    // {
-    //     public string Card;
-    //     public string Suit;
-
-    //     public int Value()
-    //     {
-    //         if (Card == "Ace")
-    //         {
-    //             return 11;
-    //         }
-    //         if (Card == "King")
-    //         {
-    //             return 10;
-    //         }
-    //         if (Card == "Queen")
-    //         {
-    //             return 10;
-    //         }
-    //         if (Card == "Jack")
-    //         {
-    //             return 10;
-    //         }
-    //         if (Card == "10")
-    //         {
-    //             return 10;
-    //         }
-    //         if (Card == "9")
-    //         {
-    //             return 9;
-    //         }
-    //         if (Card == "8")
-    //         {
-    //             return 8;
-    //         }
-    //         if (Card == "7")
-    //         {
-    //             return 7;
-    //         }
-    //         if (Card == "6")
-    //         {
-    //             return 6;
-    //         }
-    //         if (Card == "5")
-    //         {
-    //             return 5;
-    //         }
-    //         if (Card == "4")
-    //         {
-    //             return 4;
-    //         }
-    //         if (Card == "3")
-    //         {
-    //             return 3;
-    //         }
-    //         if (Card == "2")
-    //         {
-    //             return 2;
-    //         }
-    //         else
-    //         {
-    //             return int.Parse(Value);
-    //         }
-    //     }
-    // }
-    class Program
+    class Hand
     {
-        static void PlayerHand()
+        public List<Card> DealtCards {get; set; } = new List<Card>();
+
+        public void Receive(Card newCard)
         {
-            var cards = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
-            var suits = new List<string>() { "Hearts", "Diamonds", "Spades", "Clubs" };
-
-            var deck = new List<string>();
-
-            for (var index = 0; index < suits.Count; index++)
-            {
-                for (var numbersIndex = 0; numbersIndex < cards.Count; numbersIndex++)
-                {
-                    var fullNumber = ($"{cards[numbersIndex]} of {suits[index]} ");
-                    deck.Add(fullNumber);
-                }
-            }
-
-            var numberOfCards = deck.Count;
-
-            for (var rightIndex = numberOfCards - 1; rightIndex >= 1; rightIndex--)
-            {
-                var randomNumberGenerator = new Random();
-                var leftIndex = randomNumberGenerator.Next(rightIndex);
-
-                var leftCard = deck[leftIndex];
-
-                var rightCard = deck[rightIndex];
-
-                deck[rightIndex] = leftCard;
-
-                deck[leftIndex] = rightCard;
-            }
-
-            var firstCard = deck[0];
-            var secondCard = deck[1];
-            // var thirdCard = deck[2];
-
-            Console.WriteLine(firstCard);
-            Console.WriteLine("+");
-            Console.WriteLine(secondCard);
-            // Console.WriteLine(thirdCard);
-
-            Console.WriteLine("Do you want to hit or stand? ");
-
-            Console.WriteLine(" ");
-
-            var answer = Console.ReadLine();
-
-            var thirdCard = deck[4];
-
-            // var fourthCard = deck[5];
-
-            if (answer == "hit" || answer == "Hit" || answer == "HIT")
-            {
-                Console.WriteLine($"{deck[4]}");
-            }
-            // if (answer == "hit" || answer == "Hit" || answer == "HIT")
-            // {
-            //     Console.WriteLine($"{deck[5]}");
-            //     return;
-            // }
-            // else (answer == "stand" || answer == "Stand" || answer = "STAND");
-            // {
-            //     Console.WriteLine("No more cards please!");
-            //     return;
-            // }
-
+            DealtCards.Add(newCard);
         }
 
-        static void DealerHand()
+        public bool Busted()
         {
-            var cards = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
-            var suits = new List<string>() { "Hearts", "Diamonds", "Spades", "Clubs" };
-
-            var deck = new List<string>();
-
-            for (var index = 0; index < suits.Count; index++)
-            {
-                for (var numbersIndex = 0; numbersIndex < cards.Count; numbersIndex++)
-                {
-                    var fullNumber = ($"{cards[numbersIndex]} of {suits[index]} ");
-                    deck.Add(fullNumber);
-                }
-            }
-
-            var numberOfCards = deck.Count;
-
-            for (var rightIndex = numberOfCards - 1; rightIndex >= 1; rightIndex--)
-            {
-                var randomNumberGenerator = new Random();
-                var leftIndex = randomNumberGenerator.Next(rightIndex);
-
-                var leftCard = deck[leftIndex];
-
-                var rightCard = deck[rightIndex];
-
-                deck[rightIndex] = leftCard;
-
-                deck[leftIndex] = rightCard;
-            }
-
-            var firstCard = deck[2];
-            var secondCard = deck[3];
-
-            Console.WriteLine(firstCard);
-            Console.WriteLine("+");
-            Console.WriteLine(secondCard);
-
-            Console.WriteLine("Do you want to hit or stand? ");
-
-            Console.WriteLine(" ");
-
-            var answer = Console.ReadLine();
-
-            var thirdCard = deck[6];
-
-            // var fourthCard = deck[7];
-
-            if (answer == "hit" || answer == "Hit" || answer == "HIT")
-            {
-                Console.WriteLine($"{deck[4]}");
-            }
-            // if (answer == "hit" || answer == "Hit" || answer == "HIT")
-            // {
-            //     Console.WriteLine($"{deck[5]}");
-            //     return;
-            // }
+            return TotalValue() > 21;
         }
 
-        static void Main(string[] args)
+        public int TotalValue()
         {
-            DisplayGreeting();
+            var total = 0;
 
-            Console.WriteLine(" ");
+            foreach (var card in DealtCards)
+            {
+                total += card.Value();
+            }
 
-            Console.WriteLine("Player Hand-------");
-
-            PlayerHand();
-
-            Console.WriteLine(" ");
-
-            Console.WriteLine("Dealer Hand-------");
-
-            DealerHand();
-
-            Console.WriteLine(" ");
-        }
-
-        static void DisplayGreeting()
-        {
-            Console.WriteLine("Welcome to Blackjack");
-
-            Console.WriteLine("");
-
-            Console.WriteLine("Let us play the game....");
+            return total;
         }
     }
+
+    class Card
+        {
+            public string Rank {get; set; }
+            public string Suit { get; set; }
+
+            public int Value()
+            {
+            if (Rank == "Ace")
+            {
+                return 11;
+            }
+            if (Rank == "King")
+            {
+                return 10;
+            }
+            if (Rank == "Queen")
+            {
+                return 10;
+            }
+            if (Rank == "Jack")
+            {
+                return 10;
+            }
+            else
+            {
+                return int.Parse(Rank);
+            }
+            }
+
+            public string Description()
+            {
+                var newDescriptionString = $"The {Rank} of {Suit} - you have {Value()} .";
+
+                return newDescriptionString;
+            }
+        }
+    class Game
+    {
+        public void Play()
+        {
+            var deck = new List<Card>();
+
+            var ranks = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+            var suits = new List<string>() { "Hearts", "Diamonds", "Spades", "Clubs" };
+
+            // var deck = new List<string>();
+
+            foreach (var suit in suits)
+            {
+                foreach (var rank in ranks)
+                {
+                    var card = new Card { Suit = suit, Rank = rank};
+                    deck.Add(card);
+                }
+            }
+
+            // for (var index = 0; index < suits.Count; index++)
+            // {
+            //     for (var numbersIndex = 0; numbersIndex < ranks.Count; numbersIndex++)
+            //     {
+            //         var card = ($"{ranks[numbersIndex]} of {suits[index]} ");
+            //         deck.Add(card);
+            //     }
+            // }
+
+            var numberOfCards = deck.Count;
+
+            for (var rightIndex = numberOfCards - 1; rightIndex >= 1; rightIndex--)
+            {
+                var randomNumberGenerator = new Random();
+                var leftIndex = randomNumberGenerator.Next(rightIndex);
+
+                var leftCard = deck[leftIndex];
+
+                var rightCard = deck[rightIndex];
+
+                deck[rightIndex] = leftCard;
+
+                deck[leftIndex] = rightCard;
+            }
+
+            var playerHand = new Hand();
+
+            var dealerHand =  new Hand();
+
+            var newCard = deck[0];
+            deck.Remove(newCard);
+
+            playerHand.Receive(newCard);
+
+            newCard = deck[0];
+            deck.Remove(newCard);
+
+            playerHand.Receive(newCard);
+
+            newCard = deck[0];
+            deck.Remove(newCard);
+
+            dealerHand.Receive(newCard);
+
+            var keepAsking = true;
+            while (keepAsking && !playerHand.Busted())
+            {
+                Console.WriteLine("Your cards are:");
+                foreach (var card in playerHand.DealtCards)
+                {
+                    Console.WriteLine(card.Description());
+                }
+                Console.Write("Your total hand value is: ");
+                Console.WriteLine(playerHand.TotalValue());
+
+                Console.Write("Do you want to [Hit] or [Stand]? ");
+                var choice = Console.ReadLine().ToLower();
+
+                if (choice == "hit")
+                {
+                    var hitCard = deck [0];
+                    deck.Remove(hitCard);
+
+                    playerHand.Receive(hitCard);
+                }
+                else
+                {
+                    keepAsking = false;
+                }
+            }
+
+            Console.WriteLine("Your cards are:");
+            foreach (var card in playerHand.DealtCards)
+            {
+                Console.WriteLine(card.Description());
+            }
+            Console.Write("Your total hand value is: ");
+            Console.WriteLine(playerHand.TotalValue());
+
+            while (dealerHand.TotalValue() < 17 && !playerHand.Busted())
+            {
+                var newDealerCard = deck[0];
+                deck.Remove(newDealerCard);
+
+                dealerHand.Receive(newDealerCard);
+            }
+
+            Console.WriteLine("The dealer's cards are: ");
+            foreach (var card in dealerHand.DealtCards)
+            {
+                Console.WriteLine(card.Description());
+            }
+            Console.Write("The dealer's total hand value is: ");
+            Console.WriteLine(dealerHand.TotalValue());
+
+            if (playerHand.Busted())
+            {
+                Console.WriteLine("Dealer wins!");
+            }
+            else if (dealerHand.Busted())
+            {
+                Console.WriteLine("Player wins!");
+            }
+            else if (dealerHand.TotalValue() > playerHand.TotalValue())
+            {
+                Console.WriteLine("Dealer Wins");
+            }
+            else if (playerHand.TotalValue() > dealerHand.TotalValue())
+            {
+                Console.WriteLine("Player Wins!");
+            }
+            else
+            {
+                Console.WriteLine("Ties to the dealer");
+            }
+        }
+
+    }
+    class Program 
+    {
+        static void Main(string[] args)
+        {
+           var playerWantsToKeepGoing = true;
+
+           while (playerWantsToKeepGoing)
+           {
+               var theGame = new Game();
+               theGame.Play();
+
+               Console.Write("Would you like to play again? [Yes] / [No] ");
+               var answer = Console.ReadLine().ToLower();
+
+               playerWantsToKeepGoing = (answer == "yes");
+           }
+        }
+    }
+    
 }
